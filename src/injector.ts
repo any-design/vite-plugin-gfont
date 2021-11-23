@@ -44,7 +44,7 @@ class GoogleFontInjector {
     });
     const preconnect = `<link rel="preconnect" href="https://${apisHost}" crossorigin><link rel="preconnect" href="https://${gstaticHost}" crossorigin>`;
     const cssUrl = `https://${apisHost}/css2?family=${fontFamily.join('&family=')}&display=${display || 'swap'}`;
-    const cssTag = `<lint href="${cssUrl}" rel="stylesheet">`;
+    const cssTag = `<link href="${cssUrl}" rel="stylesheet">`;
     return html.replace('</head>', `${preconnect}${cssTag}</head>`);
   }
 }
