@@ -14,8 +14,31 @@ class GoogleFontInjector {
     const gstaticHost = proxy || GSTATIC_HOST;
     const fontFamily = fonts.map((font) => {
       const family = `${font.family.replace(/\s/g, '+')}`;
-      if (font.weight) {
-        return `${family}:wght@${font.weight.join(';')}`;
+      if (font.styles) {
+        const hasItalic = font.styles.reduce((res, curr) => {
+          if (typeof curr === 'number') {
+            return res;
+          }
+          if (curr.italic) {
+            return res || true;
+          }
+          return res;
+        }, false);
+        // build prefix
+        let prefix;
+        if (hasItalic) {
+          prefix = ':ital,wght@';
+        } else {
+          prefix = ':wght@';
+        }
+        // build data
+        const styleData = font.styles.map((inlineStyle) => {
+          if (typeof inlineStyle === 'number') {
+            return hasItalic ? `0,${inlineStyle}` : inlineStyle;
+          }
+          return hasItalic ? `${inlineStyle.italic ? 1 : 0},${inlineStyle.weight}` : inlineStyle.weight;
+        }).join(';');
+        return `${family}${prefix}${styleData}`;
       }
       return family;
     });

@@ -1,8 +1,15 @@
 export type FontFaceDisplay = 'auto' | 'block' | 'fallback' | 'optional' | 'swap';
 
+interface FontStyle {
+  weight: number;
+  italic?: boolean;
+};
+
+export type FontStyleInline = number | FontStyle;
+
 export interface GoogleFont {
   family: string;
-  weight?: number[];
+  styles?: FontStyleInline[];
 }
 
 export interface UserPluginConfig {
