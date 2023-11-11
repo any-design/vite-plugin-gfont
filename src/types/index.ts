@@ -16,4 +16,5 @@ export interface UserPluginConfig {
   fonts: GoogleFont[];
   proxy?: string;
   display?: FontFaceDisplay;
+  persistCSS?: boolean;
 }
